@@ -63,16 +63,6 @@ def remove_custom_user_manager_files():
     )
 
 
-def remove_pycharm_files():
-    idea_dir_path = ".idea"
-    if os.path.exists(idea_dir_path):
-        shutil.rmtree(idea_dir_path)
-
-    docs_dir_path = os.path.join("docs", "pycharm")
-    if os.path.exists(docs_dir_path):
-        shutil.rmtree(docs_dir_path)
-
-
 def remove_docker_files():
     shutil.rmtree(".devcontainer")
     shutil.rmtree("compose")
@@ -80,10 +70,6 @@ def remove_docker_files():
     file_names = ["local.yml", "production.yml", ".dockerignore"]
     for file_name in file_names:
         os.remove(file_name)
-    if "{{ cookiecutter.editor }}" == "PyCharm":
-        file_names = ["docker_compose_up_django.xml", "docker_compose_up_docs.xml"]
-        for file_name in file_names:
-            os.remove(os.path.join(".idea", "runConfigurations", file_name))
 
 
 def remove_utility_files():
@@ -451,9 +437,6 @@ def main():
     if "{{ cookiecutter.username_type }}" == "username":
         remove_custom_user_manager_files()
 
-    if "{{ cookiecutter.editor }}" != "PyCharm":
-        remove_pycharm_files()
-
     if "{{ cookiecutter.use_docker }}".lower() == "y":
         remove_utility_files()
     else:
@@ -524,7 +507,12 @@ def main():
     if "{{ cookiecutter.use_async }}".lower() == "n":
         remove_async_files()
 
-    print(SUCCESS + "Project initialized, keep up the good work!" + TERMINATOR)
+    print(
+        SUCCESS + "Project initialized, happy coding! "
+        "Don't forget to take a look at created "
+        "requirements, settings and .env variables. "
+        "Also have a look at the docs for the singularIT Django template." + TERMINATOR
+    )
 
 
 if __name__ == "__main__":

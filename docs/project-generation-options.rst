@@ -53,13 +53,6 @@ timezone:
 windows:
     Indicates whether the project should be configured for development on Windows.
 
-editor:
-    Select an editor to use. The choices are:
-
-    1. None
-    2. PyCharm_
-    3. `VS Code`_
-
 use_docker:
     Indicates whether the project should be configured to use Docker_, `Docker Compose`_ and `devcontainer`_.
 
