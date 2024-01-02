@@ -41,11 +41,11 @@ version:
 open_source_license:
     A software license for the project. The choices are:
 
-    1. MIT_
-    2. BSD_
-    3. GPLv3_
-    4. `Apache Software License 2.0`_
-    5. Not open source
+    1. Not open source
+    2. MIT_
+    3. BSD_
+    4. GPLv3_
+    5. `Apache Software License 2.0`_
 
 timezone:
     The value to be used for the ``TIME_ZONE`` setting of the project.
@@ -61,18 +61,14 @@ postgresql_version:
 
     1. 15
     2. 14
-    3. 13
-    4. 12
-    5. 11
-    6. 10
 
 cloud_provider:
     Select a cloud provider for static & media files. The choices are:
 
-    1. AWS_
-    2. GCP_
-    3. Azure_
-    4. None
+    1. None
+    2. AWS_
+    3. GCP_
+    4. Azure_
 
     If you choose no cloud provider and docker, the production stack will serve the media files via an nginx Docker service. Without Docker, the media files won't work.
 
@@ -93,7 +89,7 @@ use_async:
     Indicates whether the project should use web sockets with Uvicorn + Gunicorn.
 
 use_drf:
-    Indicates whether the project should be configured to use `Django Rest Framework`_.
+    Indicates whether the project should be configured to use `Django Rest Framework`_, django-cors-headers and drf-spectacular.
 
 frontend_pipeline:
     Select a pipeline to compile and optimise frontend assets (JS, CSS, ...):
@@ -124,10 +120,10 @@ use_heroku:
 ci_tool:
     Select a CI tool for running tests. The choices are:
 
-    1. None
-    2. `Travis CI`_
-    3. `Gitlab CI`_
-    4. `Github Actions`_
+    1. `Gitlab CI`_
+    2. None
+    3. `Github Actions`_
+    4. `Travis CI`_
     5. `Drone CI`_
 
 keep_local_envs_in_vcs:

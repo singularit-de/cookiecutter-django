@@ -114,11 +114,11 @@ Answer the prompts with your own desired [options](http://cookiecutter-django.re
     email [daniel-greenfeld@example.com]: pydanny@gmail.com
     version [0.1.0]: 0.0.1
     Select open_source_license:
-    1 - MIT
-    2 - BSD
-    3 - GPLv3
-    4 - Apache Software License 2.0
-    5 - Not open source
+    1 - Not open source
+    2 - MIT
+    3 - BSD
+    4 - GPLv3
+    5 - Apache Software License 2.0
     Choose from 1, 2, 3, 4, 5 [1]: 1
     Select username_type:
     1 - username
@@ -169,6 +169,7 @@ Answer the prompts with your own desired [options](http://cookiecutter-django.re
     2 - Travis
     3 - Gitlab
     4 - Github
+    5 - Drone
     Choose from 1, 2, 3, 4 [1]: 4
     keep_local_envs_in_vcs [y]: y
     debug [n]: n
