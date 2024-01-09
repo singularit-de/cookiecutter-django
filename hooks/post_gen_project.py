@@ -437,9 +437,7 @@ def main():
     if "{{ cookiecutter.username_type }}" == "username":
         remove_custom_user_manager_files()
 
-    if "{{ cookiecutter.use_docker }}".lower() == "y":
-        remove_utility_files()
-    else:
+    if "{{ cookiecutter.use_docker }}".lower() == "n":
         remove_docker_files()
 
     if "{{ cookiecutter.use_docker }}".lower() == "y" and "{{ cookiecutter.cloud_provider}}" != "AWS":
@@ -507,10 +505,12 @@ def main():
     if "{{ cookiecutter.use_async }}".lower() == "n":
         remove_async_files()
 
+    # singularIT specific
+    remove_utility_files()  # We are not using utility files at all
+
     print(
         SUCCESS + "Project initialized, happy coding! "
-        "Don't forget to take a look at created "
-        "requirements, settings and .env variables. "
+        "Please read the first steps you should take in the README.md file."
         "Also have a look at the docs for the singularIT Django template." + TERMINATOR
     )
 
