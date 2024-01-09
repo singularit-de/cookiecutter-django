@@ -78,9 +78,3 @@ SPARKPOST_API_URL                       n/a                         n/a         
 --------------------------
 Other Environment Settings
 --------------------------
-
-DJANGO_ACCOUNT_ALLOW_REGISTRATION (=True)
-    Allow enable or disable user registration through `django-allauth` without disabling other characteristics like authentication and account management. (Django Setting: ACCOUNT_ALLOW_REGISTRATION)
-
-DJANGO_ADMIN_FORCE_ALLAUTH (=False)
-    Force the `admin` sign in process to go through the `django-allauth` workflow.

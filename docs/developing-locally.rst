@@ -106,8 +106,6 @@ Mailpit
 
 Mailpit is used to receive emails during development, it is written in Go and has no external dependencies.
 
-For instance, one of the packages we depend upon, ``django-allauth`` sends verification emails to new users signing up as well as to the existing ones who have not yet verified themselves.
-
 #. `Download the latest Mailpit release`_ for your OS.
 
 #. Copy the binary file to the project root.
