@@ -1,0 +1,6 @@
+include:
+  - component: $CI_COMPONENTS_BASE_URL/deployment/deploy-docker-compose@~latest
+    inputs:
+      services: app,~postgres,~migration,~redis
+      base_domain: v2.singular-it-test.de
+      base_compose_file: .gitlab/docker-compose.staging.yml

@@ -1,0 +1,19 @@
+pytest:
+  stage: test
+  image: orbisk/django-test:3.11
+  extends: .size:medium
+  services:
+    - postgres:{{ cookiecutter.postgresql_version }}
+  variables:
+    DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+  before_script:
+    - pip install -r requirements/local.txt
+  script:
+    - pytest
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: never
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+      when: on_success
+    - if: $CI_COMMIT_BRANCH == 'develop' || $CI_COMMIT_BRANCH == 'staging' || $CI_COMMIT_BRANCH == 'main'
+      when: on_success

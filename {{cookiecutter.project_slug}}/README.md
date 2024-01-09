@@ -10,9 +10,39 @@
 License: {{cookiecutter.open_source_license}}
 {%- endif %}
 
-## Settings
+## First Steps after creating the project with cookiecutter
 
-Moved to [settings](http://cookiecutter-django.readthedocs.io/en/latest/settings.html).
+1. ``cd`` into the created project folder or open it in your IDE
+2. create and activate a new virtual environment and install the requirements
+   with `pip install -r requirements/local.txt`
+3. Optionally create a new ``.env`` file
+4. Install pre-commit hooks with `pre-commit install`
+5. Run ``pre-commit run --all-files`` to properly format the code
+6. Create a new repository on our [Gitlab](https://www.singular-code.de) without a README.md
+7. Git init and add the remote repository. This steps are usually shown on the empty repository page on Gitlab
+
+- `git init --initial-branch=main`
+- `git remote add origin <url>`
+- `git add .`
+- `git commit -m "Initial commit"`
+- `git push --set-upstream origin main`
+
+## Staging Deployment
+
+The application will be automatically deployed to a subdomain of
+our [staging environment](https://v2.singular-it-test.de) when you push to the `main` branch.
+The subdomain is based on the repository and group name. You can find the url at the end of the deployment log in the
+gitlab ci/cd pipeline.
+
+If you deploy for the first time make sure that you set the following variables in the gitlab ci/cd settings (go
+to `Settings -> CI/CD -> Variables`):
+
+- `DJANGO_SECRET_KEY`
+    - Environments: `main`
+    - Check "Mask variable"
+    - Uncheck "Expand variable reference"
+    - Key: ``DJANGO_SECRET_KEY``
+    - Value: _a_new_created_secret_key
 
 ## Basic Commands
 
