@@ -31,6 +31,7 @@
     "Azure"
   ],
   "mail_service": [
+    "Other SMTP",
     "Mailgun",
     "Amazon SES",
     "Mailjet",
@@ -38,8 +39,7 @@
     "Postmark",
     "Sendgrid",
     "SendinBlue",
-    "SparkPost",
-    "Other SMTP"
+    "SparkPost"
   ],
   "use_async": "n",
   "use_drf": "y",
