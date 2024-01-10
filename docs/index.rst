@@ -28,6 +28,7 @@ Contents
    faq
    troubleshooting
    contributing
+  singular-it
 
 Indices and tables
 ------------------
