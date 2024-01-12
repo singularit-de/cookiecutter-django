@@ -71,6 +71,10 @@ def remove_docker_files():
     for file_name in file_names:
         os.remove(file_name)
 
+    file_names = ["docker_compose_up_django.xml", "docker_compose_up_docs.xml"]
+    for file_name in file_names:
+        os.remove(os.path.join(".idea", "runConfigurations", file_name))
+
 
 def remove_utility_files():
     shutil.rmtree("utility")
