@@ -12,7 +12,8 @@ class CompareModelObjectsMixin:
         type, `dict(instance)` is used. If it is a model instance, `.__dict__` is used. If a key is not present in an
         object of the expected list, it is ignored. For example this is good for excluding created_at and updated_at
         fields in comparison.
-        :param expected: The expected list of objects. Keys that are not present in the objects of this list are ignored.
+        :param expected: The expected list of objects. Keys that are not present in the objects of this list are
+            ignored.
         :param result: The actual result list of objects.
 
         **Examples**:

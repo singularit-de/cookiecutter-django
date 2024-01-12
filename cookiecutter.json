@@ -1,6 +1,7 @@
 {
   "project_name": "My Awesome Project",
   "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_')|trim() }}",
+  "repository_url": "ssh://git@singular-code.de:2222/jmangold/{{ project_slug }}.git",
   "description": "Behold My Awesome Project!",
   "author_name": "singularIT GmbH",
   "domain_name": "example.com",

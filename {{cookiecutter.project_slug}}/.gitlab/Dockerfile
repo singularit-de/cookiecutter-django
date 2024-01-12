@@ -21,7 +21,3 @@ COPY requirements/production.txt requirements/production.txt
 RUN pip install -r requirements/production.txt
 
 COPY . .
-
-FROM base as app
-
-RUN python manage.py collectstatic --no-input --settings=config.settings.static_files

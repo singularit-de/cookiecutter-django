@@ -10,22 +10,54 @@
 License: {{cookiecutter.open_source_license}}
 {%- endif %}
 
+## Techstack
+
+- Python 3.11
+- Django
+- Postgres {{ cookiecutter.postgresql_version }}
+  {% if cookiecutter.use_celery == "y" %}
+- Celery
+- Cache & Broker: Redis
+  {% else %}
+- Cache: Redis
+  {% endif %}
+- Pre-commit
+- Docs: Sphinx
+
 ## First Steps after creating the project with cookiecutter
 
 1. ``cd`` into the created project folder or open it in your IDE
 2. create and activate a new virtual environment and install the requirements
    with `pip install -r requirements/local.txt`
 3. Optionally create a new ``.env`` file
-4. Install pre-commit hooks with `pre-commit install`
-5. Run ``pre-commit run --all-files`` to properly format the code
-6. Create a new repository on our [Gitlab](https://www.singular-code.de) without a README.md
-7. Git init and add the remote repository. This steps are usually shown on the empty repository page on Gitlab
+4. Create a new repository on our [Gitlab](https://www.singular-code.de) without a README.md
+5. Git init and add the remote repository. This steps are usually shown on the empty repository page on Gitlab
+    - Run git init `git init --initial-branch=main`
+    - Add gitlab origin `git remote add origin {{ cookiecutter.repository_url }}`
+    - Add all files `git add .`
+    - Install pre-commit hooks with `pre-commit install`
+    - Run commit `git commit -m "Initial commit"`
+    - Run push `git push --set-upstream origin main`
 
-- `git init --initial-branch=main`
-- `git remote add origin <url>`
-- `git add .`
-- `git commit -m "Initial commit"`
-- `git push --set-upstream origin main`
+**!!!Delete this section after you have completed the steps above!!!**
+
+## Local Setup if you dont use docker
+
+1. Create a virtual environment using python 3.11
+2. Activate the virtual environment
+3. Install the requirements with `pip install -r requirements/local.txt`
+4. Create a new ``.env`` file and copy the content from ``.env.example`` into it
+5. Create a new postgres database and add the credentials to the ``.env`` file
+6. Run the migrations with `python manage.py migrate`
+7. Create a new superuser with `python manage.py createsuperuser`
+8. Run the development server with `python manage.py runserver`
+
+## Pre-commit
+
+We use [pre-commit](https://pre-commit.com/) to ensure that all code is formatted correctly and that there are no
+linting errors. You can install the pre-commit hooks with `pre-commit install`. This will install the pre-commit hooks
+for this repository. If you want to run the pre-commit hooks manually you can run `pre-commit run --all-files`.
+See ``.pre-commit-config.yaml`` for more information.
 
 ## Staging Deployment
 
@@ -48,13 +80,16 @@ to `Settings -> CI/CD -> Variables`):
 
 ### Setting Up Your Users
 
-- To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
+- To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "
+  Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into
+  your browser. Now the user's email should be verified and ready to go.
 
 - To create a **superuser account**, use this command:
 
       $ python manage.py createsuperuser
 
-For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
+For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar),
+so that you can see how the site behaves for both kinds of users.
 
 ### Type checks
 
@@ -76,7 +111,8 @@ To run the tests, check your test coverage, and generate an HTML coverage report
 
 ### Live reloading and Sass CSS compilation
 
-Moved to [Live reloading and SASS compilation](https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html#sass-compilation-live-reloading).
+Moved
+to [Live reloading and SASS compilation](https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html#sass-compilation-live-reloading).
 
 {%- if cookiecutter.use_celery == "y" %}
 
@@ -91,9 +127,11 @@ cd {{cookiecutter.project_slug}}
 celery -A config.celery_app worker -l info
 ```
 
-Please note: For Celery's import magic to work, it is important _where_ the celery commands are run. If you are in the same folder with _manage.py_, you should be right.
+Please note: For Celery's import magic to work, it is important _where_ the celery commands are run. If you are in the
+same folder with _manage.py_, you should be right.
 
-To run [periodic tasks](https://docs.celeryq.dev/en/stable/userguide/periodic-tasks.html), you'll need to start the celery beat scheduler service. You can start it as a standalone process:
+To run [periodic tasks](https://docs.celeryq.dev/en/stable/userguide/periodic-tasks.html), you'll need to start the
+celery beat scheduler service. You can start it as a standalone process:
 
 ```bash
 cd {{cookiecutter.project_slug}}
@@ -114,29 +152,35 @@ celery -A config.celery_app worker -B -l info
 
 {%- if cookiecutter.use_docker == "y" %}
 
-In development, it is often nice to be able to see emails that are being sent from your application. For that reason local SMTP server [Mailpit](https://github.com/axllent/mailpit) with a web interface is available as docker container.
+In development, it is often nice to be able to see emails that are being sent from your application. For that reason
+local SMTP server [Mailpit](https://github.com/axllent/mailpit) with a web interface is available as docker container.
 
 Container mailpit will start automatically when you will run all docker containers.
-Please check [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html) for more details how to start all containers.
+Please
+check [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html)
+for more details how to start all containers.
 
-With Mailpit running, to view messages that are sent by your application, open your browser and go to `http://127.0.0.1:8025`
+With Mailpit running, to view messages that are sent by your application, open your browser and go
+to `http://127.0.0.1:8025`
 {%- else %}
 
-In development, it is often nice to be able to see emails that are being sent from your application. If you choose to use [Mailpit](https://github.com/axllent/mailpit) when generating the project a local SMTP server with a web interface will be available.
+In development, it is often nice to be able to see emails that are being sent from your application. If you choose to
+use [Mailpit](https://github.com/axllent/mailpit) when generating the project a local SMTP server with a web interface
+will be available.
 
-1.  [Download the latest Mailpit release](https://github.com/axllent/mailpit/releases) for your OS.
+1. [Download the latest Mailpit release](https://github.com/axllent/mailpit/releases) for your OS.
 
-2.  Copy the binary file to the project root.
+2. Copy the binary file to the project root.
 
-3.  Make it executable:
+3. Make it executable:
 
-        $ chmod +x mailpit
+       $ chmod +x mailpit
 
-4.  Spin up another terminal window and start it there:
+4. Spin up another terminal window and start it there:
 
-        ./mailpit
+       ./mailpit
 
-5.  Check out <http://127.0.0.1:8025/> to see how it goes.
+5. Check out <http://127.0.0.1:8025/> to see how it goes.
 
 Now you have your own mail server running locally, ready to receive whatever you send it.
 
@@ -147,7 +191,8 @@ Now you have your own mail server running locally, ready to receive whatever you
 
 ### Sentry
 
-Sentry is an error logging aggregator service. You can sign up for a free account at <https://sentry.io/signup/?code=cookiecutter> or download and host it yourself.
+Sentry is an error logging aggregator service. You can sign up for a free account
+at <https://sentry.io/signup/?code=cookiecutter> or download and host it yourself.
 The system is set up with reasonable defaults, including 404 logging and integration with the WSGI application.
 
 You must set the DSN url in production.
@@ -160,14 +205,16 @@ The following details how to deploy this application.
 
 ### Heroku
 
-See detailed [cookiecutter-django Heroku documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-on-heroku.html).
+See
+detailed [cookiecutter-django Heroku documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-on-heroku.html).
 
 {%- endif %}
 {%- if cookiecutter.use_docker.lower() == "y" %}
 
 ### Docker
 
-See detailed [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html).
+See
+detailed [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html).
 
 {%- endif %}
 {%- if cookiecutter.frontend_pipeline in ['Gulp', 'Webpack'] %}
@@ -177,7 +224,9 @@ See detailed [cookiecutter-django Docker documentation](http://cookiecutter-djan
 The generated CSS is set up with automatic Bootstrap recompilation with variables of your choice.
 Bootstrap v5 is installed using npm and customised by tweaking your variables in `static/sass/custom_bootstrap_vars`.
 
-You can find a list of available variables [in the bootstrap source](https://github.com/twbs/bootstrap/blob/v5.1.3/scss/_variables.scss), or get explanations on them in the [Bootstrap docs](https://getbootstrap.com/docs/5.1/customize/sass/).
+You can find a list of available
+variables [in the bootstrap source](https://github.com/twbs/bootstrap/blob/v5.1.3/scss/_variables.scss), or get
+explanations on them in the [Bootstrap docs](https://getbootstrap.com/docs/5.1/customize/sass/).
 
 Bootstrap's javascript as well as its dependencies are concatenated into a single file: `static/js/vendors.js`.
 {%- endif %}

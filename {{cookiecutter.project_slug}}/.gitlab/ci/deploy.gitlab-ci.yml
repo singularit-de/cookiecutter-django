@@ -4,3 +4,4 @@ include:
       services: app,~postgres,~migration,~redis
       base_domain: v2.singular-it-test.de
       base_compose_file: .gitlab/docker-compose.staging.yml
+      auto_stop_in: 6 months

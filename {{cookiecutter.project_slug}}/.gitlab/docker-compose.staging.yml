@@ -12,7 +12,11 @@ services:
       - DJANGO_SETTINGS_MODULE=config.settings.production
       - DJANGO_ADMIN_URL=.admin/
       - DJANGO_SECRET_KEY
-      - REDIS_URL=redis://redis:6379/0
+      - REDIS_URL=$CELERY_BROKER_URL
+      { %- if cookiecutter.use_celery == 'y' % }
+      - CELERY_BROKER_URL
+      { %- endif % }
+
     command: ["python", "manage.py", "migrate"]
   app:
     extends:
@@ -22,8 +26,6 @@ services:
       dockerfile: .gitlab/Dockerfile
       target: app
     restart: unless-stopped
-    environment:
-      - DEBUG=True
     command: ["gunicorn", "-b", ":8000", "--workers=3", "--enable-stdio-inheritance", "config.wsgi:application"]
     expose:
       - 8000

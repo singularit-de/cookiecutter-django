@@ -102,6 +102,15 @@ Additions
 
 In this section we describe the additions we made to the original cookiecutter template.
 
+cookiecutter.json
+------------------
+
+repository_url
+~~~~~~~~~~~~~~
+
+We added a `repository_url` variable to the `cookiecutter.json` file. This variable is used in the ``README.md`` file
+for initial git steps.
+
 Gitlab CI
 ---------
 
@@ -113,6 +122,9 @@ We implemented a pipeline for the main branch. This includes:
 
 Read more about in the `README.md > Staging Deployment` in the generated project.
 
+`env.example`
+-------------
+We added an `env.example` file to the project.
 
 Config Settings Static Files
 ----------------------------
