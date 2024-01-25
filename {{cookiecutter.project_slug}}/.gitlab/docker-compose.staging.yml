@@ -13,9 +13,9 @@ services:
       - DJANGO_ADMIN_URL=.admin/
       - DJANGO_SECRET_KEY
       - REDIS_URL=$CELERY_BROKER_URL
-      { %- if cookiecutter.use_celery == 'y' % }
+      {%- if cookiecutter.use_celery == 'y' %}
       - CELERY_BROKER_URL
-      { %- endif % }
+      {%- endif %}
 
     command: ["python", "manage.py", "migrate"]
   app:
