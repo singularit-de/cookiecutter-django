@@ -70,7 +70,7 @@ If you deploy for the first time make sure that you set the following variables 
 to `Settings -> CI/CD -> Variables`):
 
 - `DJANGO_SECRET_KEY`
-    - Environments: `main`
+    - Environments: `main` (defaults to `main` or the specified branch name in the .gitlab/deploy.gitlab-ci.yml)
     - Check "Mask variable"
     - Uncheck "Expand variable reference"
     - Key: ``DJANGO_SECRET_KEY``
