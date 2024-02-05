@@ -14,6 +14,8 @@ from sentry_sdk.integrations.redis import RedisIntegration
 {% endif -%}
 from .base import *  # noqa
 from .base import env
+import errno
+from os import mkdir
 
 # GENERAL
 # ------------------------------------------------------------------------------
@@ -258,6 +260,15 @@ INSTALLED_APPS = ["collectfast"] + INSTALLED_APPS  # noqa: F405
 # https://docs.djangoproject.com/en/dev/ref/settings/#logging
 # See https://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
+
+LOGGING_DIR = BASE_DIR / "logs"
+try:
+    mkdir(LOGGING_DIR)
+except OSError as exc:
+    if exc.errno != errno.EEXIST:
+        raise exc
+    pass
+
 {% if cookiecutter.use_sentry == 'n' -%}
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -277,6 +288,12 @@ LOGGING = {
             "filters": ["require_debug_false"],
             "class": "django.utils.log.AdminEmailHandler",
         },
+        'django': {
+            'level': "INFO",
+            'class': 'logging.handlers.WatchedFileHandler',
+            'filename': LOGGING_DIR / "django.log",
+            'formatter': 'to_file',
+        },
         "console": {
             "level": "DEBUG",
             "class": "logging.StreamHandler",
@@ -289,6 +306,11 @@ LOGGING = {
             "handlers": ["mail_admins"],
             "level": "ERROR",
             "propagate": True,
+        },
+        'django': {
+            'handlers': ['django'],
+            'level': "DEBUG",
+            'propagate': False,
         },
         "django.security.DisallowedHost": {
             "level": "ERROR",
@@ -311,7 +333,13 @@ LOGGING = {
             "level": "DEBUG",
             "class": "logging.StreamHandler",
             "formatter": "verbose",
-        }
+        },
+        'django': {
+            'level': "INFO",
+            'class': 'logging.handlers.WatchedFileHandler',
+            'filename': LOGGING_DIR / "django.log",
+            'formatter': 'to_file',
+        },
     },
     "root": {"level": "INFO", "handlers": ["console"]},
     "loggers": {
@@ -319,6 +347,11 @@ LOGGING = {
             "level": "ERROR",
             "handlers": ["console"],
             "propagate": False,
+        },
+        'django': {
+            'handlers': ['django'],
+            'level': "DEBUG",
+            'propagate': False,
         },
         # Errors logged by the SDK itself
         "sentry_sdk": {"level": "ERROR", "handlers": ["console"], "propagate": False},
