@@ -261,7 +261,7 @@ INSTALLED_APPS = ["collectfast"] + INSTALLED_APPS  # noqa: F405
 # See https://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
 
-LOGGING_DIR = BASE_DIR / "logs"
+LOGGING_DIR = BASE_DIR / "logs" # noqa: F405
 try:
     mkdir(LOGGING_DIR)
 except OSError as exc:
