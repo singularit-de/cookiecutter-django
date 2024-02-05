@@ -24,7 +24,7 @@ services:
     build:
       context: ..
       dockerfile: .gitlab/Dockerfile
-      target: app
+      target: base
     restart: unless-stopped
     command: ["gunicorn", "-b", ":8000", "--workers=3", "--enable-stdio-inheritance", "config.wsgi:application"]
     expose:
