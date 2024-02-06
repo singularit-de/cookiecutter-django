@@ -26,7 +26,7 @@ class CompareModelObjectsMixin:
             >>> self.assertModelObjectsListEqual([{"a":1}, {"a":2}], [{"a":1}, {"b":1}])
             None
         """
-        self.assertEquals(len(expected), len(result))
+        self.assertEqual(len(expected), len(result))
         for n1, n2 in zip(expected, result):
             self.assertModelObjectEquals(n1, n2)
 
