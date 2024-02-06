@@ -4,8 +4,6 @@ Minimal configuration for collecting static files. For example the command is in
 # Relative Imports
 from .base import *  # noqa
 
-DATABASES = {}
-
 STORAGES = {
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
