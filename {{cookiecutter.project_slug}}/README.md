@@ -52,6 +52,42 @@ License: {{cookiecutter.open_source_license}}
 7. Create a new superuser with `python manage.py createsuperuser`
 8. Run the development server with `python manage.py runserver`
 
+## Local Setup if you use docker
+
+**Prerequisites:**
+
+- [Docker](https://www.docker.com/get-started)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+
+1. Env-Files are located in the ``.envs/.local/`` directory. You can copy the content from ``.envs/.local/.env.example``
+   into a new file ``.envs/.local/.env`` and adjust the values if needed. More information about configuring the
+   environment [here.](https://cookiecutter-django.readthedocs.io/en/latest/developing-locally-docker.html#configuring-the-environment)
+2. Run the stack using ``docker compose -f local.yml up``. This builds the images and starts the containers.
+3. Any shell command like Management commands must be done using the ``docker compose -f local.yml run --rm`` command,
+   for example:
+    - ``docker compose -f local.yml run --rm django python manage.py migrate``
+    - ``docker compose -f local.yml run --rm django python manage.py createsuperuser``
+4. Pre-commit is done outside the containers. To run `pre-commit install ` use the global interpreter from the cmd.
+
+See more about developing locally with
+docker [here.](https://cookiecutter-django.readthedocs.io/en/latest/developing-locally-docker.html)
+
+### Tips for PyCharm users:
+
+A few run configurations are already set up, for example ``compose up django`` and ``compose up docs``. You can use them
+by clicking on the green play button in the top right corner of the IDE. Alternatively, open the ``local.yml`` file and
+click on the green play on the left side of the file next to the ``services`` section.
+
+**Configuring the interpreter:** You should also configure the docker-compose stack as a remote interpreter.
+
+1. To do that, go the interpreter options and select "Add Python Interpreter" -> "Docker Compose". Select
+    - Server: Docker
+    - Configuration files: Path to the docker-compose file, usually `./local.yml`
+    - Service: Django
+2. Click next, the containers will be started (and optionally built). After that, click next again.
+3. Select an interpreter from the running container. If no option is available, the container might have failed to
+   start. Try to restart the PyCharm IDE then.
+
 ## Pre-commit
 
 We use [pre-commit](https://pre-commit.com/) to ensure that all code is formatted correctly and that there are no
@@ -108,11 +144,6 @@ To run the tests, check your test coverage, and generate an HTML coverage report
 #### Running tests with pytest
 
     $ pytest
-
-### Live reloading and Sass CSS compilation
-
-Moved
-to [Live reloading and SASS compilation](https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html#sass-compilation-live-reloading).
 
 {%- if cookiecutter.use_celery == "y" %}
 

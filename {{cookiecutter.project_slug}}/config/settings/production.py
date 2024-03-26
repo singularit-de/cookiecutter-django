@@ -288,12 +288,12 @@ LOGGING = {
             "filters": ["require_debug_false"],
             "class": "django.utils.log.AdminEmailHandler",
         },
-        'django': {
-            'level': "INFO",
-            'class': 'logging.handlers.WatchedFileHandler',
-            'filename': LOGGING_DIR / "django.log",
-            'formatter': 'to_file',
-        },
+        # 'django': {
+        #     'level': "INFO",
+        #     'class': 'logging.handlers.WatchedFileHandler',
+        #     'filename': LOGGING_DIR / "django.log",
+        #     'formatter': 'to_file',
+        # }, # FIXME raises currently an error: Cant Configure django-handler
         "console": {
             "level": "DEBUG",
             "class": "logging.StreamHandler",
@@ -308,7 +308,7 @@ LOGGING = {
             "propagate": True,
         },
         'django': {
-            'handlers': ['django'],
+            'handlers': ['console', 'mail_admins'],
             'level': "DEBUG",
             'propagate': False,
         },
