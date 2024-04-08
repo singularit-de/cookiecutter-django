@@ -7,7 +7,7 @@ services:
         dockerfile: .gitlab/Dockerfile
         target: base
     environment:
-      - DATABASE_URL=postgres://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-postgres}
+      - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       - DJANGO_ALLOWED_HOSTS=.singular-it-test.de
       - DJANGO_SETTINGS_MODULE=config.settings.production
       - DJANGO_ADMIN_URL=.admin/
@@ -16,6 +16,9 @@ services:
       {%- if cookiecutter.use_celery == 'y' %}
       - CELERY_BROKER_URL
       {%- endif %}
+    depends_on:
+      postgres:
+        condition: service_healthy
 
     command: ["python", "manage.py", "migrate"]
   app:
@@ -35,9 +38,9 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USER=${POSTGRES_USER:-postgres}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
-      - POSTGRES_DB=${POSTGRES_DB:-postgres}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
   redis:
     image: redis:6
     restart: unless-stopped
