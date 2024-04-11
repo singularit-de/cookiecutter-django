@@ -1,6 +1,7 @@
 precommit:
   stage: lint
-  extends: .size:medium
+  tags:
+   - medium
   image: python:3.11
   variables:
     PRE_COMMIT_HOME: ${CI_PROJECT_DIR}/.cache/pre-commit
