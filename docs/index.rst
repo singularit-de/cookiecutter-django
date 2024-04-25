@@ -28,7 +28,8 @@ Contents
    faq
    troubleshooting
    contributing
-  singular-it
+   maintainer-guide
+   singular-it
 
 Indices and tables
 ------------------
