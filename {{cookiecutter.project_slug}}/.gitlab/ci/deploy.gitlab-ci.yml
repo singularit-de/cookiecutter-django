@@ -1,5 +1,5 @@
 include:
-  - component: singular-code.de/singularit/ci-components/deployment/deploy-docker-compose/deployment@1.11.2
+  - component: singular-code.de/singularit/ci-components/deployment/deploy-docker-compose/deployment@1.12.0
     inputs:
       services: app,~postgres,~migration,~redis
       base_domain: v2.singular-it-test.de
