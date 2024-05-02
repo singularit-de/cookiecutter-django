@@ -5,7 +5,7 @@ stages:
 
 include:
   - local: .gitlab/ci/*.gitlab-ci.yml
-  - component: $CI_COMPONENTS_BASE_URL/utilities/size@~latest
+  - component: singular-code.de/singularit/ci-components/utilities/size/all@1.2.0
 
 variables:
   POSTGRES_USER: '{{ cookiecutter.project_slug }}'
