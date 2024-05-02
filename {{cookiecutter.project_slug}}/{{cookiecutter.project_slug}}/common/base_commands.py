@@ -1,6 +1,6 @@
 # Standard Libraries
 from abc import ABC
-from typing import Callable, Optional
+from typing import Callable
 
 # Third Party Packages
 from django.core.management.base import BaseCommand as DjangoCommand
@@ -44,7 +44,7 @@ class BaseCommand(DjangoCommand, ABC):
         """
         self._print(txt=txt, style=self.style.NOTICE, ending=ending)
 
-    def _print(self, txt, style: Optional[Callable] = None, ending=None):
+    def _print(self, txt, style: Callable | None = None, ending=None):
         if style is not None:
             self.stdout.write(style(txt), ending=ending)
         else:

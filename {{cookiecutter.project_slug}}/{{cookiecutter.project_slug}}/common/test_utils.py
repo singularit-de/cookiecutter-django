@@ -1,12 +1,10 @@
-from typing import Union, OrderedDict
+from collections import OrderedDict
 
 from django.db import models
 
 
 class CompareModelObjectsMixin:
-    def assertModelObjectsListEqual(
-        self, expected: list[Union[dict, object]], result: list[Union[dict, object]]
-    ) -> None:
+    def assertModelObjectsListEqual(self, expected: list[dict | object], result: list[dict | object]) -> None:
         """
         Compares a list of objects with another list of objects. If the objects are not of type `dict` or `OrderedDict`
         type, `dict(instance)` is used. If it is a model instance, `.__dict__` is used. If a key is not present in an
@@ -32,8 +30,8 @@ class CompareModelObjectsMixin:
 
     def assertModelObjectEquals(
         self,
-        expected: Union[dict, object],
-        result: Union[dict, object],
+        expected: dict | object,
+        result: dict | object,
     ) -> None:
         """
         Compares an object with another object. If the objects are not of type `dict` or `OrderedDict`
@@ -59,7 +57,7 @@ class CompareModelObjectsMixin:
         self.assertEqual(len(d1), 0, f"\nExpected: {d1}\nActual result: {d2}")
         self.assertEqual(len(d2), 0, f"\nExpected: {d1}\nActual result: {d2}")
 
-    def __to_dict(self, obj: Union[dict, list, object, None]) -> dict:
+    def __to_dict(self, obj: dict | list | object | None) -> dict:
         try:
             return obj if type(obj) in (dict, OrderedDict) else dict(obj)
         except TypeError:  # Model instances
@@ -82,7 +80,7 @@ class CompareModelObjectsMixin:
     def __is_list_equal(self, obj_1, obj_2):
         return type(obj_1) is list and type(obj_2) is list
 
-    def __compare(self, obj_1: Union[dict, list, object, None], obj_2: Union[dict, list, object, None]) -> tuple[
+    def __compare(self, obj_1: dict | list | object | None, obj_2: dict | list | object | None) -> tuple[
         dict, dict]:
 
         old = {}

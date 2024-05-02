@@ -1,7 +1,8 @@
 pytest:
   stage: test
   image: orbisk/django-test:3.11
-  extends: .size:medium
+  tags:
+    - medium
   services:
     - postgres:{{ cookiecutter.postgresql_version }}
   variables:

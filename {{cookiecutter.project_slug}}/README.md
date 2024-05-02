@@ -26,12 +26,23 @@ License: {{cookiecutter.open_source_license}}
 
 ## First Steps after creating the project with cookiecutter
 
+### If you are NOT using docker:
+
 1. ``cd`` into the created project folder or open it in your IDE
 2. create and activate a new virtual environment and install the requirements
-   with `pip install -r requirements/local.txt`
+   1. `virtualenv venv`
+   2. ``venv\Scripts\activate`` for windows or ``source venv/bin/activate`` for linux
+   3. `pip install -r requirements/local.txt`
 3. Optionally create a new ``.env`` file
-4. Create a new repository on our [Gitlab](https://www.singular-code.de) without a README.md
-5. Git init and add the remote repository. This steps are usually shown on the empty repository page on Gitlab
+
+### If you are using docker:
+
+1. Ensure pre-commit is installed on your base python interpreter
+   1. Install pre-commit with `pip install pre-commit`
+
+### Both:
+
+1. Git init and add the remote repository. These steps are usually shown on the empty repository page on Gitlab
     - Run git init `git init --initial-branch=main`
     - Add gitlab origin `git remote add origin {{ cookiecutter.repository_url }}`
     - Add all files `git add .`
