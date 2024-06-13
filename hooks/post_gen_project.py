@@ -441,6 +441,8 @@ def main():
 
     if "{{ cookiecutter.use_docker }}".lower() == "n":
         remove_docker_files()
+    else:
+        remove_utility_files()
 
     if "{{ cookiecutter.use_docker }}".lower() == "y" and "{{ cookiecutter.cloud_provider}}" != "AWS":
         remove_aws_dockerfile()
@@ -506,9 +508,6 @@ def main():
 
     if "{{ cookiecutter.use_async }}".lower() == "n":
         remove_async_files()
-
-    # singularIT specific
-    remove_utility_files()  # We are not using utility files at all
 
     print(
         SUCCESS + "Project initialized, happy coding! "
